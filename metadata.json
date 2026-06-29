@@ -1,0 +1,6 @@
+{
+  "name": "8 Letter Words Solver & Finder Pro",
+  "description": "The ultimate premium tool for 8-letter words, featuring an advanced interactive solver, categorized word lists, a built-in trainer, and an AI Word Coach powered by Gemini 3.5 Flash.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
