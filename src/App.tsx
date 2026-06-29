@@ -22,13 +22,34 @@ import {
   HelpCircle,
   Clock,
   BookOpen,
-  Info
+  Info,
+  Moon,
+  Sun
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<AppTab>('finder');
   const [syncedGuesses, setSyncedGuesses] = useState<WordleGuess[]>([]);
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    return 'dark';
+  });
+
+  React.useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  };
   
   // Word Explainer Sheet State
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
@@ -150,6 +171,13 @@ export default function App() {
             >
               <Trophy className="w-4 h-4" />
               Arena Trainer
+            </button>
+            <button
+              onClick={toggleTheme}
+              className="flex items-center justify-center p-2.5 rounded-xl border border-slate-800 hover:border-emerald-500/50 text-slate-400 hover:text-emerald-500 bg-slate-950 hover:bg-slate-900 transition-all cursor-pointer"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
             </button>
           </div>
         </div>
