@@ -7,7 +7,6 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import { GoogleGenAI, Type } from "@google/genai";
-import { createServer as createViteServer } from "vite";
 
 // Load environment variables
 dotenv.config();
@@ -190,6 +189,7 @@ app.post("/api/ai/explain", async (req, res) => {
 async function setupExpress() {
   if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
     // Development mode (Local)
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
